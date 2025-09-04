@@ -72,14 +72,12 @@ const Dashboard: React.FC = () => {
   // Custom collision detection for better drop zone detection
   const customCollisionDetection: CollisionDetection = React.useCallback(
     (args) => {
-      // First, check for pointer intersection for more responsive detection
       const pointerIntersections = pointerWithin(args);
 
       if (pointerIntersections.length > 0) {
         return pointerIntersections;
       }
 
-      // Fallback to rectangle intersection
       return rectIntersection(args);
     },
     []
@@ -88,7 +86,7 @@ const Dashboard: React.FC = () => {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 3, // Reduced for better responsiveness
+        distance: 3,
       },
     }),
     useSensor(TouchSensor, {
@@ -107,7 +105,6 @@ const Dashboard: React.FC = () => {
     initializeTasks();
   }, [initializeTasks]);
 
-  // Get tasks to display (filtered or all) - memoized to prevent unnecessary re-renders
   const displayTasks = React.useMemo(() => {
     return searchQuery ? filteredTasks : tasks;
   }, [searchQuery, filteredTasks, tasks]);
@@ -129,9 +126,7 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const handleDragOver = () => {
-    // Optional: Add visual feedback when dragging over valid drop zones
-  };
+  const handleDragOver = () => {};
 
   const handleDragCancel = () => {
     setActiveTask(null);
@@ -139,7 +134,7 @@ const Dashboard: React.FC = () => {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    setActiveTask(null); // Reset active task
+    setActiveTask(null);
 
     if (process.env.NODE_ENV === "development") {
       console.log("Drag end:", { activeId: active.id, overId: over?.id });
@@ -155,7 +150,6 @@ const Dashboard: React.FC = () => {
     const taskId = active.id as string;
     const newStatus = over.id as TaskStatus;
 
-    // Validate that the drop target is a valid status
     const validStatuses: TaskStatus[] = [
       "todo",
       "in-progress",
@@ -169,7 +163,6 @@ const Dashboard: React.FC = () => {
       return;
     }
 
-    // Find the task being moved from the main tasks array
     const task = tasks.find((t) => t.id === taskId);
     if (!task) {
       if (process.env.NODE_ENV === "development") {
@@ -199,11 +192,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col overflow-hidden">
-      {/* Header - Full Width */}
       <Header />
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar - Hidden on mobile, visible on tablet (640px+) */}
         <div className="hidden sm:flex md:flex lg:flex flex-shrink-0">
           <Sidebar />
         </div>
