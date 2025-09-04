@@ -28,6 +28,11 @@ const swimlaneConfigs: SwimLaneConfig[] = [
   {
     id: "todo",
     title: "To Do",
+    pill: {
+      text: "To Do",
+      bgColor: "bg-gray-200",
+      textColor: "text-gray-700",
+    },
   },
   {
     id: "in-progress",

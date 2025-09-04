@@ -20,40 +20,30 @@ const Swimlane: React.FC<SwimlaneProps> = ({ config, tasks }) => {
     id: config.id,
   });
 
-  if (process.env.NODE_ENV === "development") {
-    console.log(`Swimlane ${config.id}:`, { tasksCount: tasks.length, isOver });
-  }
-
   return (
     <div className="flex flex-col h-full min-w-64 w-64 sm:min-w-72 sm:w-72 md:min-w-80 md:w-80 lg:min-w-80 lg:w-80 flex-shrink-0">
       {/* Header */}
-      <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6 lg:mb-6">
-        <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-3 lg:space-x-3">
-          <h2 className="font-semibold text-gray-900 text-sm sm:text-base md:text-base lg:text-base">
-            {config.title}
-          </h2>
-          {config.pill && (
+      <div className="flex items-center justify-between mb-4 p-3 bg-white rounded-lg border border-gray-200">
+        <div className="flex items-center space-x-3">
+          {config.pill ? (
             <span
-              className={`px-2 py-0.5 sm:px-2.5 sm:py-1 md:px-2.5 md:py-1 lg:px-2.5 lg:py-1 rounded-full text-xs font-medium ${config.pill.bgColor} ${config.pill.textColor}`}
+              className={`px-4 py-2 rounded-full text-sm font-semibold ${config.pill.bgColor} ${config.pill.textColor}`}
             >
               {config.pill.text}
             </span>
+          ) : (
+            <h2 className="font-semibold text-gray-900 text-base">
+              {config.title}
+            </h2>
           )}
         </div>
 
-        <div className="flex items-center space-x-1">
-          <button className="p-1 sm:p-1.5 md:p-1.5 lg:p-1.5 rounded-md hover:bg-gray-100 transition-colors duration-200 text-gray-400 hover:text-gray-600">
-            <Plus
-              className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4 md:h-4 lg:w-4 lg:h-4"
-              strokeWidth={2}
-            />
+        <div className="flex items-center space-x-2">
+          <button className="p-1.5 rounded-md hover:bg-gray-100 transition-colors duration-200 text-gray-400 hover:text-gray-600">
+            <Plus className="w-4 h-4" strokeWidth={2} />
           </button>
-          <button className="text-gray-400 hover:text-gray-600 p-1 sm:p-1.5 md:p-1.5 lg:p-1.5 rounded-md hover:bg-gray-100 transition-colors">
-            <svg
-              className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4 md:h-4 lg:w-4 lg:h-4"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
+          <button className="text-gray-400 hover:text-gray-600 p-1.5 rounded-md hover:bg-gray-100 transition-colors">
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
             </svg>
           </button>
@@ -75,7 +65,6 @@ const Swimlane: React.FC<SwimlaneProps> = ({ config, tasks }) => {
           }
         `}
       >
-        {/* Enhanced drop zone indicator */}
         {isOver && (
           <div className="absolute inset-0 bg-blue-50/80 rounded-xl flex items-center justify-center z-10 pointer-events-none">
             <div className="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg font-medium text-sm shadow-sm">

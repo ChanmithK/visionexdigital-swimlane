@@ -39,10 +39,6 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
     transition: isDragging ? "none" : transition,
   };
 
-  if (isDragging && process.env.NODE_ENV === "development") {
-    console.log("Task being dragged:", task.id, task.title);
-  }
-
   return (
     <div
       ref={setNodeRef}
@@ -120,7 +116,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         <div className="w-full h-24 md:h-28 rounded-lg md:rounded-xl mb-3 md:mb-4 overflow-hidden">
           <Image
             src="/Image-placeholder.png"
-            alt="Task Image"
+            alt="Logo"
             width={100}
             height={100}
             className="w-full h-full object-cover"
